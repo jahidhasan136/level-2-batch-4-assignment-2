@@ -12,7 +12,13 @@ const getAllStationery = async () => {
   return result;
 };
 
+const getSingleStationery = async (id: string) => {
+  const result = await Stationery.findById(id);
+  return result;
+};
+
 export const StationeryService = {
   createStationery,
   getAllStationery,
+  getSingleStationery,
 };

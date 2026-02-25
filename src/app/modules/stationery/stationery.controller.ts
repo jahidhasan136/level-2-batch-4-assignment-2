@@ -42,4 +42,31 @@ const getAllStationery = async (req: Request, res: Response) => {
   }
 };
 
-export const StationeryController = { createStationery, getAllStationery };
+const getSingleStationery = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const result = await Stationery.findById(id);
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: 'Stationery not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Stationery retrieved successfully',
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to retrieve stationery',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+};
+
+export const StationeryController = { createStationery, getAllStationery, getSingleStationery };
